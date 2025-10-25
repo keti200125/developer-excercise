@@ -1,27 +1,37 @@
 package com.grocerystore.till.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @NoArgsConstructor
 @Entity
-@Data
 public class Product {
 
     @Id
+    @NotBlank(message = "Product name cannot be blank")
     private String name;
-    private double price;
+
+    @Min(value = 1, message = "Price must be at least 1 cloud")
+    @Column(nullable = false)
+    private int price;
+
+    @NotBlank(message = "Category cannot be blank")
+    @Column(nullable = false)
     private String category;
 
-    private int quantity; // I know it is not the best way to handle
-                          // the problem (future update ?)
-
-    public Product(String name, double price, String category, int quantity) {
+    public Product(String name, int price, String category) {
         this.name = name;
         this.price = price;
         this.category = category;
-        this.quantity = quantity;
+    }
+
+    public String getFormattedPrice() {
+        return (price / 100) + " aws " + (price % 100) + " clouds";
     }
 }
