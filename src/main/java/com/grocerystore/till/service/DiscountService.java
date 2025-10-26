@@ -25,6 +25,11 @@ public class DiscountService {
         if (r.getType() == null)
             throw new IllegalArgumentException("Discount type is required");
 
+        if (r.getX() == null || r.getY() == null || r.getX() <= 0 || r.getY() <= 0) {
+            throw new IllegalArgumentException("X and Y must be positive numbers");
+        }
+
+
         Discount d = switch (r.getType()) {
             case "bundle" -> {
                 if (r.getApplicableProducts() == null || r.getApplicableProducts().isEmpty())
