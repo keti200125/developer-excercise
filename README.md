@@ -115,6 +115,117 @@ Choose **one** of the following formats for your solution:
 ## Questions?
 
 Feel free to make reasonable assumptions where requirements are ambiguous, but document them in your README. Good luck! 🛒
+ 
+
+# SOLUTION 
+
+## ️ Product Management API
+
+###  Add Product
+`POST /api/products`
+
+```json
+{
+  "name": "apple",
+  "price": 50,
+  "category": "fruit"
+}
+```
+
+###  Update Product
+`PUT /api/products/apple`
+
+```json
+{
+  "price": 10,
+  "category": "bad fruit"
+}
+```
+
+###  DELETE Product
+`DELETE /api/products/apple`
+
+## Discount Management API
+
+###  Add Discount
+`POST /api/discounts`
+
+1. Bundle Discount
+```json
+{
+  "type": "bundle",
+  "applicableProducts": ["apple", "banana", "tomato"],
+  "x": 3,
+  "y": 2
+}
+```
+2. Progressive Discount
+```json
+{
+  "type": "progressive",
+  "productName": "potato",
+  "x": 1,
+  "y": 50
+}
+```
+3. Bulk Discount
+```json
+{
+  "type": "bulk",
+  "productName": "bread",
+  "x": 4,
+  "y": 100
+}
+
+```
+### View All Discounts
+`GET /api/discounts`
+
+### Delete Discounts
+`DELETE /api/discounts/{id}`
+
+## Checkout API
+
+### Checkout Basket
+`POST /api/checkout`
+
+Request:
+```json
+["apple", "banana", "banana", "potato", "tomato", "banana", "potato"]
+```
+Response:
+```json
+{
+  "items": [
+    { "name": "apple", "price": 50 },
+    { "name": "banana", "price": 40 },
+    { "name": "banana", "price": 40 },
+    { "name": "potato", "price": 26 },
+    { "name": "tomato", "price": 30 },
+    { "name": "banana", "price": 40 },
+    { "name": "potato", "price": 26 }
+  ],
+  "discounts": [
+    {
+      "productNames": ["apple", "banana", "banana"],
+      "savings": 40,
+      "description": "Bundle (3 for 2)"
+    },
+    {
+      "productNames": ["potato"],
+      "savings": 13,
+      "description": "Progressive 50% off potato"
+    }
+  ],
+  "totalBeforeDiscount": "2 aws and 52 clouds",
+  "total": "1 aws and 99 clouds"
+}
+
+```
+
+
+
+
 
 
 
